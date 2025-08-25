@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tester Application Form - Geo Interactive Portal</title>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px 80px;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+    h1, h2 {
+      color: #ff9800;
+      margin-bottom: 10px;
+      user-select: none;
+    }
+    p.intro {
+      max-width: 400px;
+      text-align: center;
+      margin-bottom: 40px;
+      color: #ccc;
+      font-size: 1.1em;
+      user-select: none;
+    }
+    form {
+      background: #1f1f1f;
+      border: 2px solid #ff9800;
+      border-radius: 10px;
+      padding: 30px 25px;
+      width: 360px;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      box-shadow: 0 0 15px #ff9800aa;
+      transition: box-shadow 0.3s ease;
+    }
+    form:hover {
+      box-shadow: 0 0 25px #ff9800dd;
+    }
+    label {
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    input, select {
+      background: #121212;
+      border: 2px solid #ff9800;
+      border-radius: 10px;
+      padding: 14px 16px;
+      font-size: 1.1em;
+      color: white;
+      outline: none;
+      user-select: text;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    input::placeholder {
+      color: #bbb;
+    }
+    select option {
+      color: black;
+    }
+    input:focus, select:focus {
+      background: #ff9800;
+      color: black;
+      border-color: #ffa726;
+    }
+    button {
+      background: #1f1f1f;
+      border: 2px solid #ff9800;
+      color: white;
+      padding: 20px;
+      margin-top: 30px;
+      font-size: 1.3em;
+      font-weight: 700;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s, color 0.2s;
+      box-shadow: 0 0 10px #ff9800aa;
+    }
+    button:hover {
+      background: #ff9800;
+      color: black;
+      box-shadow: 0 0 20px #ffa726cc;
+    }
+    a {
+      color: #ff9800;
+      margin-top: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      user-select: none;
+      font-size: 1.1em;
+      transition: color 0.3s ease;
+    }
+    a:hover {
+      color: #e68900;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <h1>Tester Application Form</h1>
+  <p class="intro">
+    Interested in shaping the future of Geo Interactive?  
+    Apply now to join our tester team and get exclusive access to early stages of development.  
+    Help us make quality experiences you'll love!
+  </p>
+
+  <form action="https://formspree.io/f/xdkzgeay" method="POST">
+    <label for="name">User</label>
+    <input type="text" id="name" name="name" placeholder="Your username" required />
+
+    <label for="contact">Contact Info (Discord or Email)</label>
+     <input type="text" id="User" name="name" placeholder="Your username" required />
+
+    <label for="stage">Select Testing Stage</label>
+    <select id="stage" name="stage" required>
+      <option value="" disabled selected>Choose a stage</option>
+      <option value="Pre-Alpha">Pre-Alpha</option>
+      <option value="Alpha">Alpha</option>
+      <option value="Beta">Beta</option>
+    </select>
+
+    <button type="submit">Apply Now</button>
+  </form>
+
+  <a href="portal">← Back to Main</a>
+</body>
+</html>

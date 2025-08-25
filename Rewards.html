@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Rewards Program - Geo Interactive</title>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+      margin: 0;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h1 {
+      color: #ff9800;
+      margin-bottom: 10px;
+    }
+
+    #pointsDisplay {
+      font-size: 2em;
+      margin-bottom: 5px;
+      color: #4caf50;
+    }
+
+    #streakDisplay {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #ffa726;
+    }
+
+    button {
+      background: #1f1f1f;
+      border: 2px solid #ff9800;
+      color: white;
+      padding: 15px 20px;
+      margin: 8px;
+      font-size: 1em;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+      user-select: none;
+      width: 220px;
+    }
+
+    button:hover:not(:disabled) {
+      background: #ff9800;
+      color: black;
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    #dailyClaimBtn {
+      margin-bottom: 30px;
+      width: 260px;
+      font-weight: bold;
+    }
+
+    #message {
+      margin-top: 20px;
+      min-height: 24px;
+      font-size: 1em;
+      color: #ffa726;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Rewards Program</h1>
+
+  <div id="pointsDisplay">Loading points...</div>
+  <div id="streakDisplay"></div>
+
+  <button id="dailyClaimBtn" onclick="claimDailyPoints()">Claim Daily Points</button>
+
+  <h2>Redeem Rewards</h2>
+
+  <button onclick="redeemReward(200, 'Exclusive Discord Role')">Exclusive Discord Role - 200 points</button>
+
+  <button onclick="window.location.href='index.html'">Back to Menu</button>
+
+  <div id="message"></div>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    const pointsDisplay = document.getElementById("pointsDisplay");
+    const streakDisplay = document.getElementById("streakDisplay");
+    const dailyBtn = document.getElementById("dailyClaimBtn");
+    const messageBox = document.getElementById("message");
+
+    let userPoints = 0;
+    let currentStreak = 0;
+    let dailyClaimedToday = false;
+
+    // Fetch points and streak info from backend
+    async function getPoints() {
+      try {
+        const res = await fetch("https://server-1eby.onrender.com/points", {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        const data = await res.json();
+        if (data.success) {
+          userPoints = data.points || 0;
+          currentStreak = data.streak || 0;
+
+          pointsDisplay.textContent = `Points: ${userPoints}`;
+          streakDisplay.textContent = currentStreak > 0
+            ? `Daily streak: ${currentStreak} day${currentStreak > 1 ? 's' : ''}`
+            : "No current daily streak";
+
+          // Check if user has claimed today
+          dailyClaimedToday = data.claimedToday || false;
+          dailyBtn.disabled = dailyClaimedToday;
+          dailyBtn.textContent = dailyClaimedToday
+            ? "Daily Points Claimed"
+            : "Claim Daily Points";
+
+        } else {
+          showMessage("Failed to load points.");
+        }
+      } catch (err) {
+        showMessage("Error fetching points.");
+      }
+    }
+
+    // Claim daily points endpoint
+    async function claimDailyPoints() {
+      if (dailyClaimedToday) return;
+      dailyBtn.disabled = true;
+      dailyBtn.textContent = "Claiming...";
+
+      try {
+        const res = await fetch("https://server-1eby.onrender.com/points/daily", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          }
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          userPoints = data.points;
+          currentStreak = data.streak;
+          dailyClaimedToday = true;
+
+          pointsDisplay.textContent = `Points: ${userPoints}`;
+          streakDisplay.textContent = `Daily streak: ${currentStreak} day${currentStreak > 1 ? 's' : ''}`;
+          dailyBtn.textContent = "Daily Points Claimed";
+          showMessage(`You claimed ${data.pointsEarned} points! Keep it up!`);
+        } else {
+          showMessage(data.message || "Failed to claim daily points.");
+          dailyBtn.disabled = false;
+          dailyBtn.textContent = "Claim Daily Points";
+        }
+      } catch (err) {
+        showMessage("Error claiming daily points.");
+        dailyBtn.disabled = false;
+        dailyBtn.textContent = "Claim Daily Points";
+      }
+    }
+
+    // Redeem rewards buttons
+    async function redeemReward(cost, rewardName) {
+      if (userPoints < cost) {
+        showMessage("Not enough points for that reward.");
+        return;
+      }
+      try {
+        const res = await fetch("https://server-1eby.onrender.com/points/spend", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ cost, reward: rewardName })
+        });
+        const data = await res.json();
+        if (data.success) {
+          userPoints = data.points;
+          pointsDisplay.textContent = `Points: ${userPoints}`;
+          showMessage(`You redeemed "${rewardName}" for ${cost} points.`);
+        } else {
+          showMessage(data.message || "Failed to redeem reward.");
+        }
+      } catch (err) {
+        showMessage("Error redeeming reward.");
+      }
+    }
+
+    function showMessage(msg) {
+      messageBox.textContent = msg;
+      setTimeout(() => {
+        messageBox.textContent = "";
+      }, 7000);
+    }
+
+    // Initialize page
+    getPoints();
+  </script>
+</body>
+</html>
