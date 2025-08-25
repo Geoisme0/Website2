@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Geo Interactive Application Center</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      color: #ff9800;
+      margin: 40px 0 20px;
+      text-align: center;
+      font-size: 2.5em;
+    }
+
+    #welcomeUser {
+      position: absolute;
+      top: 15px;
+      left: 20px;
+      font-size: 1em;
+      color: #ffa726;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      width: 90%;
+      max-width: 1200px;
+      padding: 30px 0;
+    }
+
+    .position-card {
+      background: #1f1f1f;
+      border: 2px solid #ff9800;
+      border-radius: 12px;
+      padding: 20px;
+      transition: background 0.3s, transform 0.2s;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .position-card:hover {
+      background: #272727;
+      transform: translateY(-2px);
+    }
+
+    .position-title {
+      color: #ff9800;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .position-detail {
+      margin: 6px 0;
+      color: #ccc;
+    }
+
+    .apply-btn {
+      margin-top: 15px;
+      padding: 10px;
+      background: #ff9800;
+      color: #121212;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.2s ease;
+    }
+
+    .apply-btn:hover {
+      background: #e68900;
+    }
+
+    .apply-btn.closed {
+      background: #2c2c2c;
+      color: #777;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: #2c2c2c;
+      color: #aaa;
+      font-size: 0.75em;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: none;
+    }
+
+    .position-card[data-open="false"]:hover .tooltip {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Welcome to the Geo Interactive Application Center</h1>
+  <div id="welcomeUser" title="View your profile">Loading...</div>
+
+  <div class="positions-grid" id="positionsContainer">
+    <!-- Cards inserted here dynamically -->
+  </div>
+
+  <script>
+    const positions = [
+      {
+        title: "Tester",
+        minAge: "13+",
+        knowledge: "Basic game feedback",
+        description: "Help us find bugs and give feedback on new games.",
+        link: "Tester.html",
+        open: true
+      },
+      {
+        title: "Developer",
+        minAge: "15+",
+        knowledge: "Roblox Lua, Studio experience",
+        description: "Script and build new features for our games.",
+        link: "Developer.html",
+        open: false
+      },
+      {
+        title: "Moderator",
+        minAge: "16+",
+        knowledge: "Good behavior, community rules",
+        description: "Keep our community safe and respectful.",
+        link: "Moderator.html",
+        open: false
+      },
+      {
+        title: "Designer",
+        minAge: "14+",
+        knowledge: "UI/UX, clothing or asset design",
+        description: "Create UI, logos, and clothing for games.",
+        link: "Designer.html",
+        open: false
+      },
+
+      {
+        title: "Partnership",
+        minAge: "13+",
+        knowledge: "Community building, brand collaboration",
+        description: "Partner with Geo Interactive to support mutual growth and community engagement.",
+        link: "Partnership.html",
+        open: true
+      }
+    ];
+
+    const container = document.getElementById("positionsContainer");
+
+    positions.forEach(pos => {
+      const card = document.createElement("div");
+      card.className = "position-card";
+      card.setAttribute("data-open", pos.open);
+
+      card.innerHTML = `
+        <div class="position-title">${pos.title}</div>
+        <div class="position-detail"><strong>Min Age:</strong> ${pos.minAge}</div>
+        <div class="position-detail"><strong>Knowledge:</strong> ${pos.knowledge}</div>
+        <div class="position-detail"><strong>Description:</strong> ${pos.description}</div>
+        <button class="apply-btn ${pos.open ? '' : 'closed'}">
+          ${pos.open ? 'Apply' : 'Applications Closed'}
+        </button>
+        ${!pos.open ? `<div class="tooltip">This position is not accepting applications</div>` : ''}
+      `;
+
+      const btn = card.querySelector("button");
+      if (pos.open) {
+        btn.addEventListener("click", () => {
+          location.href = pos.link;
+        });
+      }
+
+      container.appendChild(card);
+    });
+
+    // Fetch profile and display username
+    async function fetchProfile() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        const res = await fetch("https://server-1eby.onrender.com/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        const data = await res.json();
+        const welcomeEl = document.getElementById("welcomeUser");
+
+        if (data.success) {
+          welcomeEl.textContent = data.username;
+          welcomeEl.onclick = () => {
+            window.location.href = "login.html";
+          };
+        } else {
+          throw new Error();
+        }
+      } catch {
+        localStorage.removeItem("token");
+        location.href = "login.html";
+      }
+    }
+
+    fetchProfile();
+  </script>
+
+</body>
+</html>

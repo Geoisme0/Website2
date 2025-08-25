@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel - User Lookup</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: #ffffff;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #ff9800;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1em;
+    }
+
+    #results {
+      background: #1f1f1f;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 20px;
+    }
+
+    .field {
+      margin-bottom: 10px;
+    }
+
+    a {
+      color: #ff9800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    #error {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Admin Panel: User Lookup</h1>
+  <a href="main.html">← Back to Main</a>
+
+  <div>
+    <label for="username">Enter Username:</label><br>
+    <input type="text" id="username" placeholder="username">
+    <button onclick="searchUser()">Search</button>
+  </div>
+
+  <div id="error"></div>
+
+  <div id="results" style="display: none;">
+    <h2>User Information</h2>
+    <div class="field"><strong>Username:</strong> <span id="result-username"></span></div>
+    <div class="field"><strong>Banned:</strong> <span id="result-banned"></span></div>
+    <div class="field"><strong>Ban Reason:</strong> <span id="result-ban-reason"></span></div>
+    <div class="field"><strong>Ban Expiry:</strong> <span id="result-ban-expiry"></span></div>
+    <div class="field"><strong>Logs:</strong> <pre id="result-logs"></pre></div>
+  </div>
+
+  <script>
+    async function searchUser() {
+      const username = document.getElementById('username').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const errorDiv = document.getElementById('error');
+      errorDiv.textContent = '';
+      resultsDiv.style.display = 'none';
+
+      if (!username) {
+        errorDiv.textContent = 'Please enter a username.';
+        return;
+      }
+
+      try {
+        const token = localStorage.getItem('token'); // or use cookies/sessionStorage
+        const res = await fetch(`/admin/user/${username}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+
+        if (!res.ok) {
+          const err = await res.json();
+          errorDiv.textContent = err.message || "Error fetching user info.";
+          return;
+        }
+
+        const data = await res.json();
+        document.getElementById('result-username').textContent = data.username || "N/A";
+        document.getElementById('result-banned').textContent = data.banned ? "Yes" : "No";
+        document.getElementById('result-ban-reason').textContent = data.banReason || "None";
+        document.getElementById('result-ban-expiry').textContent = data.banExpiry ? new Date(data.banExpiry).toLocaleString() : "N/A";
+        document.getElementById('result-logs').textContent = data.logs ? data.logs.join('\n') : "No logs available";
+
+        resultsDiv.style.display = 'block';
+      } catch (err) {
+        console.error(err);
+        errorDiv.textContent = 'Unexpected error occurred.';
+      }
+    }
+  </script>
+</body>
+</html>

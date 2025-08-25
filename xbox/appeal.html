@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Geo Interactive - Appeal Form</title>
+  <style>
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #ff9800;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #ccc;
+      text-align: center;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    form {
+      background: #1f1f1f;
+      padding: 30px 25px;
+      border-radius: 10px;
+      border: 2px solid #ff9800;
+      width: 100%;
+      max-width: 450px;
+      box-shadow: 0 0 12px #ff9800aa;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #ff9800;
+      background: #121212;
+      color: white;
+      font-size: 1em;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      background: #ff9800;
+      color: black;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background: #ff9800;
+      border: none;
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e68900;
+    }
+
+    a {
+      margin-top: 40px;
+      display: inline-block;
+      color: #ff9800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #e68900;
+    }
+  </style>
+</head>
+<body>
+  <h1>Appeal Form</h1>
+  <p>If you've been warned, kicked, or banned and believe it was unfair, you can appeal below. Be honest and respectful.</p>
+
+  <form action="https://formspree.io/f/movwwbaw" method="POST">
+    <label for="username">Your Username</label>
+    <input type="text" id="username" name="Username" placeholder="e.g. GeoGames2011" required>
+
+    <label for="discord">Discord Username</label>
+    <input type="text" id="discord" name="Discord" placeholder="e.g. Geo#1234" required>
+
+    <label for="action">What action are you appealing?</label>
+    <select id="action" name="Action" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="Warning">Warning</option>
+      <option value="Kick">Kick</option>
+      <option value="Ban">Ban</option>
+      <option value="safeguarding ban">safeguarding ban</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label for="reason">Why do you believe this action was unfair?</label>
+    <textarea id="reason" name="Reason" placeholder="Explain your side..." required></textarea>
+
+    <label for="extra">Any extra context or evidence (optional)</label>
+    <textarea id="extra" name="Extra Context" placeholder="Paste messages, dates, or other details here"></textarea>
+
+    <button type="submit">Submit Appeal</button>
+  </form>
+
+  <a href="portal">← Back to Portal</a>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Partnership Application - Geo Interactive</title>
+  <style>
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #ff9800;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #ccc;
+      text-align: center;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    form {
+      background: #1f1f1f;
+      padding: 30px 25px;
+      border-radius: 10px;
+      border: 2px solid #ff9800;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 0 12px #ff9800aa;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #ff9800;
+      background: #121212;
+      color: white;
+      font-size: 1em;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      background: #ff9800;
+      color: black;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background: #ff9800;
+      border: none;
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e68900;
+    }
+
+    a {
+      margin-top: 40px;
+      display: inline-block;
+      color: #ff9800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #e68900;
+    }
+  </style>
+</head>
+<body>
+  <h1>Partnership Application</h1>
+  <p>Want to partner with Geo Interactive? Fill out the form below and we’ll get in touch if you're a good fit.</p>
+
+  <form action="https://formspree.io/f/mgvyyqez" method="POST">
+    <label for="org">Organization / Project Name</label>
+    <input type="text" id="org" name="Organization" required placeholder="e.g. Watchdog Systems">
+
+    <label for="contact">Contact Name</label>
+    <input type="text" id="contact" name="Contact Name" required placeholder="Your full name">
+
+    <label for="discord">Discord Username</label>
+    <input type="text" id="discord" name="Discord" required placeholder="e.g. Geo#1234">
+
+    <label for="website">Website or Social Link</label>
+    <input type="url" id="website" name="Website" placeholder="https://yourproject.com">
+
+    <label for="why">Why do you want to partner with Geo Interactive?</label>
+    <textarea id="why" name="Reason" required placeholder="Tell us about your goals and how we can help each other."></textarea>
+
+    <label for="extras">Extra Information (optional)</label>
+    <textarea id="extras" name="Extras" placeholder="Anything else we should know? Links, Discord server invite, etc."></textarea>
+
+    <button type="submit">Submit Application</button>
+  </form>
+
+  <a href="portal">← Back to Portal</a>
+</body>
+</html>

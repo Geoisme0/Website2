@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Main Menu - Geo Interactive Portal</title>
+  <style>
+    body {
+      background: #121212;
+      color: white;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 50px;
+      margin: 0;
+      min-height: 100vh;
+      position: relative;
+    }
+      h1 {
+      color: #ff9800;
+      margin-bottom: 10px;
+    }
+    #welcomeUser {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      font-size: 1.2em;
+      color: #ffa726;
+      font-weight: 600;
+      cursor: pointer;
+      user-select: none;
+    }
+    .app-button {
+      background: #1f1f1f;
+      border: 2px solid #ff9800;
+      color: white;
+      padding: 20px;
+      margin: 20px;
+      font-size: 1.2em;
+      border-radius: 10px;
+      cursor: pointer;
+      width: 250px;
+      text-align: center;
+      transition: background 0.2s;
+      user-select: none;
+    }
+    .app-button:hover {
+      background: #ff9800;
+      color: black;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Welcome to the Geo Interactive Portal</h1>
+  <div id="welcomeUser" title="Go to your profile"></div>
+
+  <div class="app-button" onclick="location.href='chat'">Chat</div>
+  <div class="app-button" onclick="location.href='anonymous'">Anonymous Chat</div>
+  <div class="app-button" onclick="location.href='Rewards'">Reward Program</div>
+  <div class="app-button" onclick="location.href='partners'">Our Partners.</div>
+  <div class="app-button" onclick="location.href='applicationcenter'">Application center</div>
+
+  <script>
+    async function fetchProfile() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      try {
+        // Fix: fetch the /profile endpoint, not the base URL
+        const res = await fetch("https://server-1eby.onrender.com/profile", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+
+        if (!res.ok) throw new Error("Failed to fetch profile");
+
+        const data = await res.json();
+
+        if (data.success) {
+          const welcomeEl = document.getElementById("welcomeUser");
+          welcomeEl.textContent = data.username;
+          welcomeEl.onclick = () => {
+            window.location.href = "login"; // maybe link to profile page later
+          };
+        } else {
+          throw new Error(data.message || "Failed to fetch profile");
+        }
+      } catch (e) {
+        console.error(e);
+        localStorage.removeItem("token");
+        localStorage.removeItem("username");
+        window.location.href = "login";
+      }
+    }
+    fetchProfile();
+  </script>
+</body>
+</html>
