@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Geo Interactive - Developer Contact</title>
+  <style>
+    body {
+      background: #121212;
+      color: #e0e0e0;
+      font-family: sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px 20px;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      color: #ff9800;
+      margin-bottom: 20px;
+    }
+
+    p {
+      color: #ccc;
+      text-align: center;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+
+    form {
+      background: #1f1f1f;
+      padding: 30px 25px;
+      border-radius: 10px;
+      border: 2px solid #ff9800;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 12px #ff9800aa;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 2px solid #ff9800;
+      background: #121212;
+      color: white;
+      font-size: 1em;
+      outline: none;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      background: #ff9800;
+      color: black;
+    }
+
+    button {
+      margin-top: 30px;
+      padding: 15px;
+      font-size: 1.2em;
+      font-weight: bold;
+      background: #ff9800;
+      border: none;
+      color: #121212;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #e68900;
+    }
+
+    a {
+      margin-top: 40px;
+      display: inline-block;
+      color: #ff9800;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #e68900;
+    }
+
+    .inline-radio label {
+      display: inline-block;
+      margin-right: 15px;
+      font-weight: normal;
+    }
+
+    .small {
+      font-size: 0.85em;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <h1>Developer Contact Form</h1>
+  <p>If you are a developer or contributor for Geo Interactive, use this form to send updates, bug reports, suggestions, or applications. Please provide as much detail as possible.</p>
+
+  <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+    <label for="name">Your Name</label>
+    <input type="text" id="name" name="Name" placeholder="e.g. Geo" required>
+
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="Email" placeholder="e.g. geo@example.com" required>
+
+    <label for="role">Are you a Roblox developer?</label>
+    <select id="role" name="Roblox Developer" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="Yes">Yes</option>
+      <option value="No">No</option>
+    </select>
+
+    <div id="roblox-details" style="display:none;">
+      <label>Which Roblox skills do you use?</label>
+      <div class="inline-radio">
+        <label><input type="checkbox" name="Roblox Skills" value="Module Scripting"> Module Scripting</label>
+        <label><input type="checkbox" name="Roblox Skills" value="Local Scripting"> Local Scripting</label>
+        <label><input type="checkbox" name="Roblox Skills" value="Server Scripting"> Server Scripting</label>
+        <label><input type="checkbox" name="Roblox Skills" value="Builder"> Builder</label>
+      </div>
+    </div>
+
+    <label for="experience">Experience Level</label>
+    <select id="experience" name="Experience Level" required>
+      <option value="" disabled selected>Select one</option>
+      <option value="Beginner">Beginner</option>
+      <option value="Intermediate">Intermediate</option>
+      <option value="Advanced">Advanced</option>
+      <option value="Expert">Expert</option>
+    </select>
+
+    <label for="skills">Other Skills / Programming Languages</label>
+    <input type="text" id="skills" name="Skills" placeholder="e.g. Python, Lua, JavaScript">
+
+    <label for="github">GitHub / Portfolio Link (optional)</label>
+    <input type="text" id="github" name="GitHub" placeholder="https://github.com/username">
+
+
+
+    <label for="description">Description / Details</label>
+    <textarea id="description" name="Description" placeholder="Explain your submission..." required></textarea>
+
+    <label for="attachments">Extra Context or Links (optional)</label>
+    <textarea id="attachments" name="Extra Context" placeholder="Paste links, screenshots, or other details here"></textarea>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <a href="portal">← Back to Portal</a>
+
+  <script>
+    const roleSelect = document.getElementById('role');
+    const robloxDetails = document.getElementById('roblox-details');
+    roleSelect.addEventListener('change', function() {
+      if(this.value === 'Yes'){
+        robloxDetails.style.display = 'block';
+      } else {
+        robloxDetails.style.display = 'none';
+        // uncheck all checkboxes if hidden
+        robloxDetails.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+      }
+    });
+  </script>
+</body>
+</html>
