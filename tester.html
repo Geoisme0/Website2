@@ -3,117 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <title>Tester Application Form - Geo Interactive Portal</title>
-  <style>
+    <style>
     body {
       background: #121212;
       color: white;
       font-family: sans-serif;
+      margin: 0;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 50px 20px 80px;
-      margin: 0;
-      min-height: 100vh;
     }
 
-    h1, h2 {
+    h1 {
       color: #ff9800;
-      margin-bottom: 10px;
-    }
-
-    p.intro {
-      max-width: 400px;
-      text-align: center;
-      margin-bottom: 40px;
-      color: #ccc;
-      font-size: 1.1em;
+      margin-bottom: 30px;
     }
 
     form {
       background: #1f1f1f;
-      border: 2px solid #ff9800;
+      padding: 30px;
       border-radius: 10px;
-      padding: 30px 25px;
       width: 100%;
-      max-width: 400px;
-      display: flex;
-      flex-direction: column;
-      box-shadow: 0 0 15px #ff9800aa;
-      transition: box-shadow 0.3s ease;
-    }
-
-    form:hover {
-      box-shadow: 0 0 25px #ff9800dd;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
     label {
+      display: block;
       margin-top: 20px;
-      margin-bottom: 6px;
-      font-weight: 600;
+      font-weight: bold;
     }
 
-    input, select {
-      background: #121212;
-      border: 2px solid #ff9800;
-      border-radius: 10px;
-      padding: 14px 16px;
-      font-size: 1.05em;
+    input, textarea, select {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 5px;
+      background: #2a2a2a;
       color: white;
-      outline: none;
+      font-size: 1em;
     }
 
-    input::placeholder {
-      color: #bbb;
+    textarea {
+      resize: vertical;
+      height: 100px;
     }
 
-    select option {
-      color: black;
+    .checkbox-group {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
     }
 
-    input:focus, select:focus {
-      background: #ff9800;
-      color: black;
-      border-color: #ffa726;
+    .checkbox-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+    }
+
+    .checkbox-group input {
+      width: auto;
+      margin-right: 6px;
     }
 
     button {
-      background: #1f1f1f;
-      border: 2px solid #ff9800;
-      color: white;
-      padding: 15px;
-      margin-top: 30px;
-      font-size: 1.2em;
-      font-weight: 700;
-      border-radius: 10px;
+      background-color: #ff9800;
+      color: #121212;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 25px;
+      font-weight: bold;
       cursor: pointer;
-      transition: background 0.2s, color 0.2s;
-      box-shadow: 0 0 10px #ff9800aa;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background: #ff9800;
-      color: black;
-      box-shadow: 0 0 20px #ffa726cc;
-    }
-
-    a {
-      color: #ff9800;
-      margin-top: 50px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 1.1em;
-      transition: color 0.3s ease;
-    }
-
-    a:hover {
-      color: #e68900;
-      text-decoration: underline;
-    }
-
-    .small {
-      font-size: 0.9em;
-      color: #aaa;
-      margin-top: 5px;
+      background-color: #e68900;
     }
   </style>
 </head>
@@ -157,3 +126,4 @@
   <a href="portal">← Back to Main</a>
 </body>
 </html>
+
