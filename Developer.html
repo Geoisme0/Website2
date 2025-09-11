@@ -3,108 +3,86 @@
 <head>
   <meta charset="UTF-8">
   <title>Geo Interactive - Developer Contact</title>
-  <style>
+    <style>
     body {
       background: #121212;
-      color: #e0e0e0;
+      color: white;
       font-family: sans-serif;
+      margin: 0;
+      padding: 40px 20px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 50px 20px;
-      min-height: 100vh;
-      margin: 0;
     }
 
     h1 {
       color: #ff9800;
-      margin-bottom: 20px;
-    }
-
-    p {
-      color: #ccc;
-      text-align: center;
-      max-width: 600px;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
     }
 
     form {
       background: #1f1f1f;
-      padding: 30px 25px;
+      padding: 30px;
       border-radius: 10px;
-      border: 2px solid #ff9800;
       width: 100%;
-      max-width: 500px;
-      box-shadow: 0 0 12px #ff9800aa;
+      max-width: 600px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
     }
 
     label {
       display: block;
       margin-top: 20px;
-      margin-bottom: 6px;
       font-weight: bold;
     }
 
     input, textarea, select {
       width: 100%;
-      padding: 12px;
-      border-radius: 8px;
-      border: 2px solid #ff9800;
-      background: #121212;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 5px;
+      background: #2a2a2a;
       color: white;
       font-size: 1em;
-      outline: none;
     }
 
     textarea {
       resize: vertical;
-      min-height: 100px;
+      height: 100px;
     }
 
-    input:focus, textarea:focus, select:focus {
-      background: #ff9800;
-      color: black;
+    .checkbox-group {
+      margin-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .checkbox-group label {
+      font-weight: normal;
+      display: flex;
+      align-items: center;
+    }
+
+    .checkbox-group input {
+      width: auto;
+      margin-right: 6px;
     }
 
     button {
-      margin-top: 30px;
-      padding: 15px;
-      font-size: 1.2em;
-      font-weight: bold;
-      background: #ff9800;
-      border: none;
+      background-color: #ff9800;
       color: #121212;
-      border-radius: 8px;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 5px;
+      margin-top: 25px;
+      font-weight: bold;
       cursor: pointer;
-      width: 100%;
-      transition: background 0.3s;
+      transition: background-color 0.3s ease;
     }
 
     button:hover {
-      background: #e68900;
-    }
-
-    a {
-      margin-top: 40px;
-      display: inline-block;
-      color: #ff9800;
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-      color: #e68900;
-    }
-
-    .inline-radio label {
-      display: inline-block;
-      margin-right: 15px;
-      font-weight: normal;
-    }
-
-    .small {
-      font-size: 0.85em;
-      color: #ccc;
+      background-color: #e68900;
     }
   </style>
 </head>
@@ -179,4 +157,5 @@
   </script>
 </body>
 </html>
+
 
